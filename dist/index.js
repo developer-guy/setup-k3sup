@@ -1521,6 +1521,7 @@ exports.getArkadeConfig = getArkadeConfig;
 function downloadArkade(version) {
     return __awaiter(this, void 0, void 0, function* () {
         const url = `https://github.com/alexellis/arkade/releases/download/${version}/arkade`;
+        // eslint-disable-next-line no-console
         console.log(`downloading ${toolName} from ${url}`);
         let downloadPath = null;
         downloadPath = yield tc.downloadTool(url);
