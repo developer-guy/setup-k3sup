@@ -1,4 +1,4 @@
-name: 'build-test'
+name: 'Test setup-k3sup'
 on: # rebuild any PRs and main branch changes
   pull_request:
   push:
@@ -7,20 +7,17 @@ on: # rebuild any PRs and main branch changes
       - 'releases/*'
 
 jobs:
-  build: # make sure build/ci work properly
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - run: |
-          npm install
-      - run: |
-          npm run all
   test: # make sure the action works on a clean machine without building
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: azure/setup-kubectl@v1
       - uses: ./
         with:
-          version: 0.6.22
-      - name: test setup
-        run: arkade version
+          channel: stable
+          wait: 30s
+          version: '0.9.11'
+      - name: Get nodes
+        run: |
+          kubectl get nodes -o wide
+

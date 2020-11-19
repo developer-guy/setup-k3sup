@@ -1,11 +1,15 @@
-name: 'setup-arkade'
-description: 'Setup arkade cli'
+name: 'setup-k3sup'
+description: 'Setup k3sup cluster'
 author: 'openfaas'
 inputs:
   version: # change this
     required: false
-    description: 'this is the version of the arkade cli'
-    default: '0.6.22'
+    description: 'this is the version of the k3sup cli'
+    default: '0.9.11'
+  channel:
+    required: false
+    description:  "Optional release channel: stable, latest, or i.e. v1.18 (default 'stable')"
+    default: "stable"
 runs:
   using: 'node12'
   main: 'dist/index.js'
