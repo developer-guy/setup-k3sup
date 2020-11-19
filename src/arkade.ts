@@ -20,6 +20,7 @@ export function getArkadeConfig(): ArkadeConfig {
 // this action should always be run from a Linux worker
 export async function downloadArkade(version: string): Promise<string> {
   const url = `https://github.com/alexellis/arkade/releases/download/${version}/arkade`
+  // eslint-disable-next-line no-console
   console.log(`downloading ${toolName} from ${url}`)
   let downloadPath: string | null = null
   downloadPath = await tc.downloadTool(url)
