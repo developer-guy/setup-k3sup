@@ -1,19 +1,15 @@
 import * as core from '@actions/core'
-import {wait} from './wait'
+import {ArkadeConfig, getArkade, getArkadeConfig} from './arkade'
 
-async function run(): Promise<void> {
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+async function run() {
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
-
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
-
-    core.setOutput('time', new Date().toTimeString())
+    const cfg: ArkadeConfig = getArkadeConfig()
+    const toolPath: string = await getArkade(cfg.version)
+    core.addPath(toolPath)
   } catch (error) {
     core.setFailed(error.message)
   }
 }
 
-run()
+run();
